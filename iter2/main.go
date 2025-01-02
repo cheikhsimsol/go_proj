@@ -54,7 +54,11 @@ func ActiveUsersRange(u []User) []User {
 }
 
 func ActiveUsersSlices(u []User) []User {
-	return slices.DeleteFunc(u, func(user User) bool {
+
+	copySlice := make([]User, len(u))
+	copy(copySlice, u)
+
+	return slices.DeleteFunc(copySlice, func(user User) bool {
 		return !user.Active
 	})
 }
