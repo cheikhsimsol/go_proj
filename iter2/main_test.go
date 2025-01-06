@@ -1,14 +1,28 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	faker "github.com/bxcodec/faker/v3"
+)
+
+func generateUsers(count int) ([]User, error) {
+	var users []User
+	for i := 0; i < count; i++ {
+		var user User
+		if err := faker.FakeData(&user); err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+	return users, nil
+}
 
 func BenchmarkGetTotalActiveWithIter(b *testing.B) {
-	users := []User{
-		{Username: "Alice", Active: true, Points: 120},
-		{Username: "Bob", Active: false, Points: 85},
-		{Username: "Charlie", Active: true, Points: 200},
-		{Username: "Diana", Active: false, Points: 50},
-		{Username: "Eve", Active: true, Points: 150},
+	users, err := generateUsers(1000)
+
+	if err != nil {
+		panic(err)
 	}
 
 	b.ReportAllocs()
@@ -18,12 +32,10 @@ func BenchmarkGetTotalActiveWithIter(b *testing.B) {
 }
 
 func BenchmarkGetTotalActiveWithRange(b *testing.B) {
-	users := []User{
-		{Username: "Alice", Active: true, Points: 120},
-		{Username: "Bob", Active: false, Points: 85},
-		{Username: "Charlie", Active: true, Points: 200},
-		{Username: "Diana", Active: false, Points: 50},
-		{Username: "Eve", Active: true, Points: 150},
+	users, err := generateUsers(1000)
+
+	if err != nil {
+		panic(err)
 	}
 
 	b.ReportAllocs()
@@ -33,12 +45,10 @@ func BenchmarkGetTotalActiveWithRange(b *testing.B) {
 }
 
 func BenchmarkGetTotalActiveWithSlices(b *testing.B) {
-	users := []User{
-		{Username: "Alice", Active: true, Points: 120},
-		{Username: "Bob", Active: false, Points: 85},
-		{Username: "Charlie", Active: true, Points: 200},
-		{Username: "Diana", Active: false, Points: 50},
-		{Username: "Eve", Active: true, Points: 150},
+	users, err := generateUsers(1000)
+
+	if err != nil {
+		panic(err)
 	}
 
 	b.ReportAllocs()
