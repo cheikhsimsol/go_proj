@@ -1,0 +1,3 @@
+module nginxgen
+
+go 1.23.4
