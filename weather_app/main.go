@@ -9,7 +9,7 @@ import (
 
 type Forecast struct {
 	Temperature float32 `json:"temperature"`
-	Unit        string
+	Unit        string  `json:"unit"`
 }
 
 type WeatherProvider interface {
