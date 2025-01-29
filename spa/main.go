@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
-	"strings"
 )
 
 const spaDir = "./dist" // Change this to your SPA directory
@@ -13,7 +12,7 @@ func spaHandler(w http.ResponseWriter, r *http.Request) {
 	path := filepath.Join(spaDir, r.URL.Path)
 
 	// If the request has no file extension, serve index.html
-	if !strings.Contains(filepath.Base(path), ".") {
+	if filepath.Ext(path) == "" {
 		http.ServeFile(w, r, filepath.Join(spaDir, "index.html"))
 		return
 	}
