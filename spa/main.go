@@ -17,8 +17,9 @@ func spaHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fs := http.Dir(spaDir)
 	// Serve static files
-	http.FileServer(http.Dir(spaDir)).ServeHTTP(w, r)
+	http.FileServer(fs).ServeHTTP(w, r)
 }
 
 func main() {
