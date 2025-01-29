@@ -34,7 +34,7 @@ func main() {
 	// Start a background HTTP server for Let's Encrypt HTTP-01 challenge
 	go func() {
 		log.Println("Starting HTTP server for Let's Encrypt challenge...")
-		err := http.ListenAndServe(":8000", certManager.HTTPHandler(nil))
+		err := http.ListenAndServe(":80", certManager.HTTPHandler(nil))
 		if err != nil {
 			log.Fatalf("HTTP server failed: %s\n", err)
 		}
